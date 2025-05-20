@@ -1,24 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: example-rollout
+  name: canary-demo
 spec:
-  replicas: 10
+  replicas: 5
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: nginx
+      app: canary-demo
   template:
     metadata:
       labels:
-        app: nginx
+        app: canary-demo
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.15.3
+      - name: canary-demo
+        image: argoproj/rollouts-demo:blue
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
-  minReadySeconds: 30
-  revisionHistoryLimit: 3
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+
   strategy:
     canary:
       #Indicates that the rollout should use the Canary strategy
