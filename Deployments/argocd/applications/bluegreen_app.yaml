@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: canary
+  name: bluegreen
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/mglaserde/knowledge_transfer
-    path: Deployments/canary
+    path: Deployments/blue-green
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: canary
+    namespace: bluegreen
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
