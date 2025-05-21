@@ -21,6 +21,6 @@ spec:
         - containerPort: 8080
   strategy:
     blueGreen:
-      activeService: bluegreen-active
-      previewService: bluegreen-preview
+      activeService: bluegreen-demo
+      previewService: bluegreen-demo-preview
       autoPromotionEnabled: false
