@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: canary-demo
+  name: canary-rollout
 spec:
   replicas: 10
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: canary-demo
+      app: canary
   template:
     metadata:
       labels:
-        app: canary-demo
+        app: canary
     spec:
       containers:
       - name: canary-demo
@@ -24,22 +24,21 @@ spec:
 
   strategy:
     canary:
-      #Indicates that the rollout should use the Canary strategy
       maxSurge: '25%'
       maxUnavailable: 0
       steps:
       - setWeight: 10
       - pause:
-          duration: 30s # 1 hour
+          duration: 20s
       - setWeight: 20
       - pause:
-          duration: 30s
+          duration: 20s
       - setWeight: 30
       - pause:
-          duration: 30s
+          duration: 320s
       - setWeight: 40
       - pause:
-          duration: 30s
+          duration: 20s
       - setWeight: 50
       - pause:
-          duration: 30s
+          duration: 20s
